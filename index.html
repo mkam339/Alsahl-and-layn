@@ -80,16 +80,39 @@
 </section>
 
 <!-- الأعمال -->
+
 <section id="portfolio" class="bg-slate-50">
   <div class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-3xl font-extrabold mb-6">أعمالنا</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="h-64 illus p-6 soft-card"></div>
-      <div class="h-64 illus p-6 soft-card"></div>
-      <div class="h-64 illus p-6 soft-card"></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" data-lightbox>
+      <div class="h-64 illus p-6 soft-card cursor-zoom-in">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="بنرات">
+          <rect width="300" height="200" fill="#0ea5e9"/>
+          <rect x="30" y="30" width="240" height="40" rx="8" fill="#fff"/>
+          <rect x="30" y="84" width="180" height="24" rx="6" fill="#e2e8f0"/>
+          <rect x="30" y="118" width="120" height="20" rx="6" fill="#f1f5f9"/>
+        </svg>
+      </div>
+      <div class="h-64 illus p-6 soft-card cursor-zoom-in">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="تصميم صور">
+          <rect width="300" height="200" fill="#22c55e"/>
+          <circle cx="86" cy="70" r="26" fill="#fef08a"/>
+          <polygon points="10,190 120,110 210,170 290,130 290,190" fill="#064e3b" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="h-64 illus p-6 soft-card cursor-zoom-in">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="مواقع إلكترونية">
+          <rect width="300" height="200" fill="#a855f7"/>
+          <rect x="24" y="28" width="252" height="16" rx="6" fill="#e9d5ff"/>
+          <rect x="24" y="56" width="180" height="16" rx="6" fill="#e9d5ff"/>
+          <rect x="24" y="84" width="220" height="16" rx="6" fill="#e9d5ff"/>
+          <rect x="24" y="112" width="140" height="16" rx="6" fill="#e9d5ff"/>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- قسم المواقع -->
 <section id="web" class="max-w-7xl mx-auto px-4 py-16">
@@ -110,6 +133,12 @@
 <!-- تسجيل الدخول -->
 <section id="auth" class="max-w-md mx-auto px-4 py-16">
   <h2 class="text-3xl font-extrabold mb-6 text-center">تسجيل الدخول</h2>
+
+  <!-- شارة الحالة -->
+  <div id="authState" class="hidden mb-4 p-3 rounded-xl border soft-card bg-green-50 text-green-700 text-sm">
+    تم تسجيل الدخول كـ <span id="authUserEmail" class="font-bold"></span>
+  </div>
+
   <div class="space-y-4 border p-6 rounded-2xl soft-card">
     <input id="email" type="email" class="w-full border p-3 rounded" placeholder="البريد الإلكتروني">
     <input id="password" type="password" class="w-full border p-3 rounded" placeholder="كلمة المرور">
@@ -117,6 +146,7 @@
     <button id="loginBtn" type="button" class="w-full px-4 py-2 bg-rose-600 text-white rounded">تسجيل الدخول بالبريد</button>
     <button id="googleBtn" type="button" class="w-full px-4 py-2 rounded bg-black text-white">تسجيل الدخول بواسطة Google</button>
     <button id="resetBtn" type="button" class="w-full px-4 py-2 underline text-sm">نسيت كلمة المرور؟</button>
+    <button id="logoutBtn" type="button" class="hidden w-full px-4 py-2 rounded bg-slate-800 text-white">تسجيل الخروج</button>
     <p id="authMsg" class="text-center text-sm text-slate-600"></p>
   </div>
 </section>
@@ -124,7 +154,7 @@
 <footer class="border-t text-center text-slate-500 p-4">© <span id="year"></span> السهل واللين</footer>
 
 <script type="module">
-  const COMPANY_EMAIL = "info@example.com";
+  const COMPANY_EMAIL = "info@example.com"; // غيّر هذا لبريد شركتك
   document.getElementById('companyEmail').textContent = COMPANY_EMAIL;
   document.getElementById('companyEmail').href = "mailto:"+COMPANY_EMAIL;
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -132,9 +162,10 @@
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { 
     getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-    sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup 
+    sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, signOut 
   } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+  // مفاتيح مشروعك
   const firebaseConfig = {
     apiKey: "AIzaSyCpO_HmeRLjGSvNwyKTvstl6KhK0RFhtEw",
     authDomain: "alsahl-and-layn.firebaseapp.com",
@@ -151,26 +182,69 @@
   const email = document.getElementById('email');
   const password = document.getElementById('password');
   const msg = document.getElementById('authMsg');
+  const authState = document.getElementById('authState');
+  const authUserEmail = document.getElementById('authUserEmail');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  const errorsAR = {
+    "auth/invalid-email": "صيغة البريد غير صحيحة.",
+    "auth/missing-email": "رجاءً اكتب بريدك الإلكتروني.",
+    "auth/missing-password": "رجاءً اكتب كلمة المرور.",
+    "auth/weak-password": "كلمة المرور ضعيفة (على الأقل 6 أحرف).",
+    "auth/email-already-in-use": "هذا البريد مسجّل مسبقًا.",
+    "auth/user-not-found": "لا يوجد مستخدم بهذا البريد.",
+    "auth/wrong-password": "كلمة المرور غير صحيحة.",
+    "auth/too-many-requests": "محاولات كثيرة. حاول لاحقًا.",
+    "auth/popup-closed-by-user": "تم إغلاق نافذة Google قبل الإتمام.",
+    "default": "حدث خطأ غير متوقع."
+  };
+
+  function showMsg(text, ok=false){
+    msg.textContent = text;
+    msg.className = "text-center text-sm " + (ok ? "text-green-700" : "text-rose-700");
+  }
+  function mapError(e){
+    const code = (e && e.code) ? e.code : "default";
+    return errorsAR[code] || (e && e.message) || errorsAR.default;
+  }
+  function requireEmail(){
+    if (!email.value) { showMsg(errorsAR["auth/missing-email"]); return false; }
+    return true;
+  }
 
   document.getElementById('signupBtn').addEventListener('click', async ()=>{
-    try { await createUserWithEmailAndPassword(auth, email.value, password.value); msg.textContent='✅ تم إنشاء الحساب وتسجيل الدخول.'; }
-    catch(e){ msg.textContent='❌ ' + e.message; }
+    if (!email.value || !password.value){ showMsg("رجاءً اكتب بريدك وكلمة المرور."); return; }
+    try { await createUserWithEmailAndPassword(auth, email.value, password.value); showMsg('✅ تم إنشاء الحساب وتسجيل الدخول.', true); }
+    catch(e){ showMsg(mapError(e)); }
   });
+
   document.getElementById('loginBtn').addEventListener('click', async ()=>{
-    try { await signInWithEmailAndPassword(auth, email.value, password.value); msg.textContent='✅ تم تسجيل الدخول.'; }
-    catch(e){ msg.textContent='❌ ' + e.message; }
+    if (!email.value || !password.value){ showMsg("رجاءً اكتب بريدك وكلمة المرور."); return; }
+    try { await signInWithEmailAndPassword(auth, email.value, password.value); showMsg('✅ تم تسجيل الدخول.', true); }
+    catch(e){ showMsg(mapError(e)); }
   });
+
   document.getElementById('googleBtn').addEventListener('click', async ()=>{
-    try { const provider = new GoogleAuthProvider(); await signInWithPopup(auth, provider); msg.textContent='✅ تم تسجيل الدخول بواسطة Google.'; }
-    catch(e){ msg.textContent='❌ ' + e.message; }
+    try { const provider = new GoogleAuthProvider(); await signInWithPopup(auth, provider); showMsg('✅ تم تسجيل الدخول بواسطة Google.', true); }
+    catch(e){ showMsg(mapError(e)); }
   });
+
   document.getElementById('resetBtn').addEventListener('click', async ()=>{
-    try { await sendPasswordResetEmail(auth, email.value); msg.textContent='📧 تم إرسال رابط إعادة التعيين.'; }
-    catch(e){ msg.textContent='❌ ' + e.message; }
+    if (!requireEmail()) return;
+    try { await sendPasswordResetEmail(auth, email.value); showMsg('📧 إذا كان البريد مسجّلًا، ستصلك رسالة إعادة التعيين قريبًا.', true); }
+    catch(e){ showMsg(mapError(e)); }
+  });
+
+  logoutBtn.addEventListener('click', async ()=>{
+    try { await signOut(auth); showMsg('تم تسجيل الخروج.', true); }
+    catch(e){ showMsg(mapError(e)); }
   });
 
   onAuthStateChanged(auth, (user)=>{
-    if (user) { console.log('Logged in as', user.email); }
+    const logged = !!user;
+    authState.classList.toggle('hidden', !logged);
+    logoutBtn.classList.toggle('hidden', !logged);
+    authUserEmail.textContent = logged ? (user.email || "مستخدم") : "";
   });
 </script>
 </body>
