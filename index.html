@@ -52,20 +52,16 @@
       </div>
     </div>
     <div class="soft-card bg-white rounded-2xl p-4">
-      <!-- صورة الهيرو المطلوبة (مُعاد رسمها كـ SVG داخل الملف كي تظهر للجميع) -->
+      <!-- صورة الهيرو كـ SVG داخلي -->
       <svg viewBox="0 0 920 600" class="w-full h-80 rounded-xl" xmlns="http://www.w3.org/2000/svg" aria-label="أيقونات لوحات">
         <rect x="10" y="10" width="900" height="580" rx="28" fill="#fff"/>
-        <!-- مربع منع -->
         <rect x="80" y="100" width="200" height="200" rx="28" fill="#ef4444"/>
         <rect x="120" y="180" width="160" height="24" fill="#fff"/>
-        <!-- دائرة منع -->
         <circle cx="430" cy="200" r="110" fill="none" stroke="#ef4444" stroke-width="28"/>
         <rect x="330" y="190" width="200" height="22" fill="#ef4444"/>
         <path d="M330 210 a100 100 0 0 0 200 0" fill="none" stroke="#ef4444" stroke-width="12"/>
-        <!-- مثلث تحذير مقلوب -->
         <polygon points="620,130 820,130 720,270" fill="#f97316"/>
         <rect x="717" y="270" width="6" height="90" fill="#6b7280"/>
-        <!-- خط أرضي -->
         <rect x="200" y="420" width="440" height="10" fill="#94a3b8"/>
       </svg>
     </div>
@@ -95,51 +91,26 @@
   </div>
 </section>
 
-<!-- PORTFOLIO (رسومات بسيطة داخلية لضمان الظهور للجميع) -->
+<!-- PORTFOLIO with your images (Base64) -->
 <section id="portfolio" class="bg-slate-50">
   <div class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-3xl font-extrabold mb-6">أعمالنا</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden">
         <span class="tag">تصميم مواقع</span>
-        <svg viewBox="0 0 600 400" class="w-full h-full">
-          <rect width="600" height="400" fill="#a855f7"/>
-          <rect x="40" y="40" width="520" height="40" rx="10" fill="#e9d5ff"/>
-          <rect x="40" y="100" width="340" height="24" rx="8" fill="#e9d5ff"/>
-          <rect x="40" y="140" width="400" height="24" rx="8" fill="#e9d5ff"/>
-          <rect x="40" y="180" width="260" height="24" rx="8" fill="#e9d5ff"/>
-          <rect x="40" y="220" width="180" height="24" rx="8" fill="#e9d5ff"/>
-        </svg>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA" alt="تصميم مواقع" class="rounded-xl w-full h-full object-cover"/>
       </figure>
-
       <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden">
         <span class="tag">تصميم بنرات</span>
-        <svg viewBox="0 0 600 400" class="w-full h-full">
-          <rect width="600" height="400" fill="#0ea5e9"/>
-          <rect x="60" y="60" width="480" height="80" rx="14" fill="#fff"/>
-          <rect x="60" y="170" width="360" height="48" rx="10" fill="#e2e8f0"/>
-          <rect x="60" y="230" width="260" height="36" rx="10" fill="#f1f5f9"/>
-        </svg>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA" alt="تصميم بنرات" class="rounded-xl w-full h-full object-cover"/>
       </figure>
-
       <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden">
         <span class="tag">تصميم صور</span>
-        <svg viewBox="0 0 600 400" class="w-full h-full">
-          <rect width="600" height="400" fill="#22c55e"/>
-          <circle cx="110" cy="120" r="36" fill="#fef08a"/>
-          <rect x="200" y="70" width="340" height="20" rx="8" fill="#bbf7d0"/>
-          <rect x="200" y="110" width="260" height="20" rx="8" fill="#bbf7d0"/>
-          <rect x="200" y="150" width="300" height="20" rx="8" fill="#bbf7d0"/>
-          <rect x="200" y="190" width="180" height="20" rx="8" fill="#bbf7d0"/>
-        </svg>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA" alt="تصميم صور جرافيك" class="rounded-xl w-full h-full object-cover"/>
       </figure>
-
       <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden">
         <span class="tag">لوحات الطرق</span>
-        <svg viewBox="0 0 600 400" class="w-full h-full">
-          <rect width="600" height="400" fill="#ef4444"/>
-          <rect x="120" y="180" width="360" height="40" rx="6" fill="#fff"/>
-        </svg>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA" alt="لوحات الطرق - تمهل" class="rounded-xl w-full h-full object-cover"/>
       </figure>
     </div>
   </div>
@@ -147,7 +118,7 @@
 
 <!-- PAYMENT -->
 <section id="payment" class="max-w-3xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-4">معلومات الحساب البنكي</h2>
+  <h2 class="text-3xl font-extrabول mb-4">معلومات الحساب البنكي</h2>
   <div class="p-6 rounded-2xl border soft-card bg-white space-y-4 text-sm">
     <div class="border rounded-xl p-3"><div class="text-slate-500">اسم البنك</div><div class="font-bold">مصرف الراجحي</div></div>
     <div class="border rounded-xl p-3"><div class="text-slate-500">اسم الحساب</div><div class="font-bold">شركة السهل واللين</div></div>
@@ -244,7 +215,6 @@
   };
   const showMsg = (text, ok=false)=>{ msg.textContent=text; msg.className="text-center text-sm "+(ok?"text-green-700":"text-rose-700"); };
 
-  // حالة تسجيل الدخول + إظهار البريد داخل الشريط
   onAuthStateChanged(auth, (user)=>{
     if (user){
       authState.classList.remove('hidden');
@@ -262,21 +232,18 @@
     }
   });
 
-  // إنشاء حساب
   document.getElementById('signupBtn').onclick = async ()=>{
     if(!email.value || !password.value) return showMsg("رجاءً اكتب بريدك وكلمة المرور.");
     try { await createUserWithEmailAndPassword(auth, email.value, password.value); showMsg('✅ تم إنشاء الحساب وتسجيل الدخول.', true); }
     catch(e){ showMsg(errorsAR[e?.code] || e?.message || errorsAR.default); }
   };
 
-  // تسجيل بالبريد
   document.getElementById('loginBtn').onclick = async ()=>{
     if(!email.value || !password.value) return showMsg("رجاءً اكتب بريدك وكلمة المرور.");
     try { await signInWithEmailAndPassword(auth, email.value, password.value); showMsg('✅ تم تسجيل الدخول.', true); }
     catch(e){ showMsg(errorsAR[e?.code] || e?.message || errorsAR.default); }
   };
 
-  // Google: Popup ثم Redirect إذا لزم
   const provider = new GoogleAuthProvider();
   document.getElementById('googleBtn').onclick = async ()=>{
     try { await signInWithPopup(auth, provider); showMsg('✅ تم تسجيل الدخول بواسطة Google.', true); }
@@ -287,15 +254,16 @@
   };
   try { await getRedirectResult(auth); } catch(_){}
 
-  // إعادة تعيين كلمة المرور
   document.getElementById('resetBtn').onclick = async ()=>{
     if(!email.value) return showMsg("رجاءً اكتب بريدك الإلكتروني.");
     try { await sendPasswordResetEmail(auth, email.value); showMsg('📧 إذا كان البريد مسجّلًا ستصلك رسالة قريبًا.', true); }
     catch(e){ showMsg(errorsAR[e?.code] || e?.message || errorsAR.default); }
   };
 
-  // خروج
-  logoutBtn.onclick = async ()=>{ try{ await signOut(auth); showMsg("تم تسجيل الخروج.", true);}catch(e){ showMsg(errorsAR[e?.code] || e?.message || errorsAR.default); } };
+  logoutBtn.onclick = async ()=>{
+    try { await signOut(auth); showMsg("تم تسجيل الخروج.", true); }
+    catch(e){ showMsg(errorsAR[e?.code] || e?.message || errorsAR.default); }
+  };
 </script>
 </body>
 </html>
