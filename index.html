@@ -3,9 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>السهل واللين — موقع شركة (Compat Auth)</title>
+  <title>السهل واللين — موقع شركة</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Firebase v9 compat (بدون modules) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
   <style>
     *{font-family:'Tajawal',system-ui,Arial}
     html{scroll-behavior:smooth}
@@ -16,295 +23,306 @@
     .btn-primary{background:#ffffff;color:#e11d48;border-color:#ffffff;box-shadow:0 8px 22px rgba(255,255,255,.15)}
     .btn-ghost{background:transparent;color:#ffffff;border-color:rgba(255,255,255,.7)}
     .thumb svg{width:100%;height:100%}
-    .debug pre{white-space:pre-wrap;direction:ltr;background:#0f172a;color:#e5e7eb;border-radius:.75rem;padding:1rem;overflow:auto}
+    .rounded-xl{object-fit:cover}
   </style>
-
-  <!-- Firebase v9 compat (بدون modules) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
+
 <body class="bg-white text-slate-900">
 
-<header class="sticky top-0 bg-white/80 backdrop-blur border-b border-slate-200 z-50">
-  <nav class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-6">
-    <a href="#home" class="text-2xl font-extrabold text-rose-600">السهل واللين</a>
-    <div class="ml-auto flex flex-wrap gap-5">
-      <a href="#home" class="hover:text-rose-600">الرئيسية</a>
-      <a href="#services" class="hover:text-rose-600">الخدمات</a>
-      <a href="#portfolio" class="hover:text-rose-600">الأعمال</a>
-      <a href="#payment" class="hover:text-rose-600">معلومات البنك</a>
-      <a href="#web" class="hover:text-rose-600">قسم المواقع</a>
-      <a href="#contact" class="hover:text-rose-600">تواصل</a>
-      <a href="#auth" class="hover:text-rose-600">تسجيل الدخول</a>
-    </div>
-    <span id="navEmailPill" class="hidden ms-3 text-sm px-3 py-1 rounded-full bg-green-100 text-green-800 border border-green-300 whitespace-nowrap">
-      📧 بريدك: <span id="navEmailText" class="font-bold"></span>
-    </span>
-  </nav>
-</header>
+  <!-- شريط علوي -->
+  <header class="sticky top-0 bg-white/80 backdrop-blur border-b border-slate-200 z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-6">
+      <a href="#home" class="text-2xl font-extrabold text-rose-600">السهل واللين</a>
+      <div class="ms-auto flex flex-wrap gap-5">
+        <a href="#home" class="hover:text-rose-600">الرئيسية</a>
+        <a href="#services" class="hover:text-rose-600">الخدمات</a>
+        <a href="#portfolio" class="hover:text-rose-600">الأعمال</a>
+        <a href="#payment" class="hover:text-rose-600">معلومات البنك</a>
+        <a href="#web" class="hover:text-rose-600">قسم المواقع</a>
+        <a href="#contact" class="hover:text-rose-600">تواصل</a>
+        <a href="#auth" class="hover:text-rose-600">تسجيل الدخول</a>
+      </div>
+      <span id="navEmailPill" class="hidden me-2 text-sm px-3 py-1 rounded-full bg-green-100 text-green-800 border border-green-300 whitespace-nowrap">
+        📧 بريدك: <span id="navEmailText" class="font-bold"></span>
+      </span>
+    </nav>
+  </header>
 
-<section id="home" class="hero-grad text-white">
-  <div class="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h1 class="text-4xl font-extrabold leading-[1.2]">حلول تصميم متكاملة ولوحات استرشادية احترافية</h1>
-      <p class="mt-4 text-white/90 max-w-xl">بنرات وصور، مواقع إلكترونية، ولوحات طرق وأمان للشركات — تنفيذ ومعايير عالية.</p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href="#services" class="btn btn-primary">ابدأ الآن</a>
-        <a href="#portfolio" class="btn btn-ghost">شاهد أعمالنا</a>
+  <!-- الرئيسية -->
+  <section id="home" class="hero-grad text-white">
+    <div class="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl font-extrabold leading-[1.2]">حلول تصميم متكاملة ولوحات استرشادية احترافية</h1>
+        <p class="mt-4 text-white/90 max-w-xl">بنرات وصور، مواقع إلكترونية، ولوحات طرق وأمان للشركات — تنفيذ ومعايير عالية.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#services" class="btn btn-primary">ابدأ الآن</a>
+          <a href="#portfolio" class="btn btn-ghost">شاهد أعمالنا</a>
+        </div>
+      </div>
+      <div class="soft-card bg-white rounded-2xl p-4">
+        <svg viewBox="0 0 920 600" class="w-full h-80 rounded-xl" xmlns="http://www.w3.org/2000/svg" aria-label="أيقونات لوحات">
+          <rect x="10" y="10" width="900" height="580" rx="28" fill="#fff"/>
+          <rect x="80" y="100" width="200" height="200" rx="28" fill="#ef4444"/>
+          <rect x="120" y="180" width="160" height="24" fill="#fff"/>
+          <circle cx="430" cy="200" r="110" fill="none" stroke="#ef4444" stroke-width="28"/>
+          <rect x="330" y="190" width="200" height="22" fill="#ef4444"/>
+          <path d="M330 210 a100 100 0 0 0 200 0" fill="none" stroke="#ef4444" stroke-width="12"/>
+          <polygon points="620,130 820,130 720,270" fill="#f97316"/>
+          <rect x="717" y="270" width="6" height="90" fill="#6b7280"/>
+          <rect x="200" y="420" width="440" height="10" fill="#94a3b8"/>
+        </svg>
       </div>
     </div>
-    <div class="soft-card bg-white rounded-2xl p-4">
-      <svg viewBox="0 0 920 600" class="w-full h-80 rounded-xl" xmlns="http://www.w3.org/2000/svg" aria-label="أيقونات لوحات">
-        <rect x="10" y="10" width="900" height="580" rx="28" fill="#fff"/>
-        <rect x="80" y="100" width="200" height="200" rx="28" fill="#ef4444"/>
-        <rect x="120" y="180" width="160" height="24" fill="#fff"/>
-        <circle cx="430" cy="200" r="110" fill="none" stroke="#ef4444" stroke-width="28"/>
-        <rect x="330" y="190" width="200" height="22" fill="#ef4444"/>
-        <path d="M330 210 a100 100 0 0 0 200 0" fill="none" stroke="#ef4444" stroke-width="12"/>
-        <polygon points="620,130 820,130 720,270" fill="#f97316"/>
-        <rect x="717" y="270" width="6" height="90" fill="#6b7280"/>
-        <rect x="200" y="420" width="440" height="10" fill="#94a3b8"/>
-      </svg>
+  </section>
+
+  <!-- الخدمات -->
+  <section id="services" class="max-w-7xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-6">خدماتنا</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 rounded-2xl border soft-card">
+        <h3 class="font-bold text-rose-600 mb-1">تصميم بنرات</h3>
+        <p class="text-slate-600">بنرات إعلانية ومعارض بمقاسات وخامات مقاومة للعوامل الجوية.</p>
+      </div>
+      <div class="p-6 rounded-2xl border soft-card">
+        <h3 class="font-bold text-rose-600 mb-1">تصميم صور</h3>
+        <p class="text-slate-600">تحرير ودمج احترافي وإخراجات سوشيال ميديا متناسقة.</p>
+      </div>
+      <div class="p-6 rounded-2xl border soft-card">
+        <h3 class="font-bold text-rose-600 mb-1">تصميم مواقع إلكترونية</h3>
+        <p class="text-slate-600">مواقع متجاوبة وسريعة — مع مكان لموقع فرعي للقسم.</p>
+      </div>
+      <div class="p-6 rounded-2xl border soft-card">
+        <h3 class="font-bold text-rose-600 mb-1">لوحات استرشادية للطرق والأمان</h3>
+        <p class="text-slate-600">منع/تحذير/إلزام وتركيب ميداني وفق المواصفات.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="services" class="max-w-7xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-6">خدماتنا</h2>
-  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-6 rounded-2xl border soft-card"><h3 class="font-bold text-rose-600 mb-1">تصميم بنرات</h3><p class="text-slate-600">بنرات إعلانية ومعارض بمقاسات وخامات مقاومة للعوامل الجوية.</p></div>
-    <div class="p-6 rounded-2xl border soft-card"><h3 class="font-bold text-rose-600 mb-1">تصميم صور</h3><p class="text-slate-600">تحرير ودمج احترافي وإخراجات سوشيال ميديا متناسقة.</p></div>
-    <div class="p-6 rounded-2xl border soft-card"><h3 class="font-bold text-rose-600 mb-1">تصميم مواقع إلكترونية</h3><p class="text-slate-600">مواقع متجاوبة وسريعة — مع مكان لموقع فرعي للقسم.</p></div>
-    <div class="p-6 rounded-2xl border soft-card"><h3 class="font-bold text-rose-600 mb-1">لوحات استرشادية للطرق والأمان</h3><p class="text-slate-600">منع/تحذير/إلزام وتركيب ميداني وفق المواصفات.</p></div>
-  </div>
-</section>
-
-<section id="portfolio" class="bg-slate-50">
-  <div class="max-w-7xl mx-auto px-4 py-16">
-    <h2 class="text-3xl font-extrabold mb-6">أعمالنا</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
-        <span class="tag">تصميم مواقع</span>
-        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم مواقع">
-          <rect width="600" height="400" rx="24" fill="#0ea5e9"/>
-          <rect x="60" y="70" width="480" height="260" rx="16" fill="#e2e8f0"/>
-          <rect x="90" y="100" width="420" height="20" rx="10" fill="#334155"/>
-          <rect x="90" y="140" width="280" height="14" rx="7" fill="#64748b"/>
-          <rect x="90" y="170" width="360" height="14" rx="7" fill="#94a3b8"/>
-          <rect x="90" y="200" width="300" height="14" rx="7" fill="#94a3b8"/>
-          <rect x="90" y="260" width="160" height="36" rx="10" fill="#0ea5e9"/>
-        </svg>
-      </figure>
-      <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
-        <span class="tag">تصميم بنرات</span>
-        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم بنرات">
-          <rect width="600" height="400" rx="24" fill="#22c55e"/>
-          <rect x="80" y="80" width="440" height="240" rx="18" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
-          <rect x="110" y="120" width="220" height="30" rx="8" fill="#0f172a"/>
-          <rect x="110" y="170" width="320" height="14" rx="7" fill="#64748b"/>
-          <rect x="110" y="200" width="280" height="14" rx="7" fill="#94a3b8"/>
-          <rect x="110" y="260" width="180" height="36" rx="10" fill="#22c55e"/>
-        </svg>
-      </figure>
-      <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
-        <span class="tag">تصميم صور</span>
-        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم صور">
-          <rect width="600" height="400" rx="24" fill="#f59e0b"/>
-          <circle cx="160" cy="160" r="60" fill="#fde68a"/>
-          <rect x="250" y="110" width="280" height="180" rx="16" fill="#1f2937"/>
-          <rect x="270" y="130" width="240" height="12" rx="6" fill="#f8fafc"/>
-          <rect x="270" y="160" width="220" height="12" rx="6" fill="#e5e7eb"/>
-          <rect x="270" y="190" width="240" height="12" rx="6" fill="#e5e7eb"/>
-          <rect x="270" y="240" width="140" height="36" rx="10" fill="#f59e0b"/>
-        </svg>
-      </figure>
-      <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
-        <span class="tag">لوحات الطرق</span>
-        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="لوحات الطرق">
-          <rect width="600" height="400" rx="24" fill="#ef4444"/>
-          <rect x="160" y="70" width="280" height="180" rx="20" fill="#f8fafc"/>
-          <text x="300" y="160" text-anchor="middle" font-size="60" font-weight="700" fill="#ef4444">تمهـل</text>
-          <rect x="292" y="250" width="16" height="80" fill="#334155"/>
-          <rect x="180" y="350" width="240" height="10" fill="#334155"/>
-        </svg>
-      </figure>
+  <!-- الأعمال (صور مضمّنة SVG لتظهر للجميع) -->
+  <section id="portfolio" class="bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 py-16">
+      <h2 class="text-3xl font-extrabold mb-6">أعمالنا</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
+          <span class="tag">تصميم مواقع</span>
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم مواقع">
+            <rect width="600" height="400" rx="24" fill="#0ea5e9"/>
+            <rect x="60" y="70" width="480" height="260" rx="16" fill="#e2e8f0"/>
+            <rect x="90" y="100" width="420" height="20" rx="10" fill="#334155"/>
+            <rect x="90" y="140" width="280" height="14" rx="7" fill="#64748b"/>
+            <rect x="90" y="170" width="360" height="14" rx="7" fill="#94a3b8"/>
+            <rect x="90" y="200" width="300" height="14" rx="7" fill="#94a3b8"/>
+            <rect x="90" y="260" width="160" height="36" rx="10" fill="#0ea5e9"/>
+          </svg>
+        </figure>
+        <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
+          <span class="tag">تصميم بنرات</span>
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم بنرات">
+            <rect width="600" height="400" rx="24" fill="#22c55e"/>
+            <rect x="80" y="80" width="440" height="240" rx="18" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
+            <rect x="110" y="120" width="220" height="30" rx="8" fill="#0f172a"/>
+            <rect x="110" y="170" width="320" height="14" rx="7" fill="#64748b"/>
+            <rect x="110" y="200" width="280" height="14" rx="7" fill="#94a3b8"/>
+            <rect x="110" y="260" width="180" height="36" rx="10" fill="#22c55e"/>
+          </svg>
+        </figure>
+        <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
+          <span class="tag">تصميم صور</span>
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="تصميم صور">
+            <rect width="600" height="400" rx="24" fill="#f59e0b"/>
+            <circle cx="160" cy="160" r="60" fill="#fde68a"/>
+            <rect x="250" y="110" width="280" height="180" rx="16" fill="#1f2937"/>
+            <rect x="270" y="130" width="240" height="12" rx="6" fill="#f8fafc"/>
+            <rect x="270" y="160" width="220" height="12" rx="6" fill="#e5e7eb"/>
+            <rect x="270" y="190" width="240" height="12" rx="6" fill="#e5e7eb"/>
+            <rect x="270" y="240" width="140" height="36" rx="10" fill="#f59e0b"/>
+          </svg>
+        </figure>
+        <figure class="relative h-64 p-2 soft-card bg-white rounded-2xl overflow-hidden thumb">
+          <span class="tag">لوحات الطرق</span>
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="لوحات الطرق">
+            <rect width="600" height="400" rx="24" fill="#ef4444"/>
+            <rect x="160" y="70" width="280" height="180" rx="20" fill="#f8fafc"/>
+            <text x="300" y="160" text-anchor="middle" font-size="60" font-weight="700" fill="#ef4444">تمهـل</text>
+            <rect x="292" y="250" width="16" height="80" fill="#334155"/>
+            <rect x="180" y="350" width="240" height="10" fill="#334155"/>
+          </svg>
+        </figure>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="payment" class="max-w-3xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-4">معلومات الحساب البنكي</h2>
-  <div class="p-6 rounded-2xl border soft-card bg-white space-y-4 text-sm">
-    <div class="border rounded-xl p-3"><div class="text-slate-500">اسم البنك</div><div class="font-bold">مصرف الراجحي</div></div>
-    <div class="border rounded-xl p-3"><div class="text-slate-500">اسم الحساب</div><div class="font-bold">شركة السهل واللين</div></div>
-    <div class="border rounded-xl p-3"><div class="text-slate-500">IBAN</div><div class="font-bold break-all">SA5880000375608010255740</div></div>
-    <div class="border rounded-xl p-3"><div class="text-slate-500">رقم الحساب</div><div class="font-bold break-all">37500-001-0006080255740</div></div>
-    <div class="border rounded-xl p-3"><div class="text-slate-500">الهاتف / واتساب</div><div class="font-bold">0534335815</div></div>
-  </div>
-</section>
-
-<section id="web" class="max-w-7xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-4">قسم تصميم المواقع</h2>
-  <p class="text-slate-600">زيارة الموقع الفرعي للقسم:</p>
-  <a href="https://mkam339.github.io/mkam339-/#" target="_blank" class="inline-block mt-3 px-4 py-2 rounded-xl border hover:bg-rose-50">زيارة الموقع الفرعي</a>
-</section>
-
-<section id="contact" class="max-w-4xl mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-4">تواصل معنا</h2>
-  <div class="mt-3 p-4 rounded-2xl border soft-card bg-white">
-    <a id="companyEmail" href="mailto:info@example.com" class="text-lg font-bold text-rose-600">info@example.com</a>
-  </div>
-</section>
-
-<section id="auth" class="max-w-md mx-auto px-4 py-16">
-  <h2 class="text-3xl font-extrabold mb-6 text-center">تسجيل الدخول</h2>
-  <div id="authState" class="hidden mb-4 p-3 rounded-xl border bg-green-50 text-green-700 text-sm">
-    تم تسجيل الدخول كـ <span id="authUserEmail" class="font-bold"></span>
-  </div>
-  <div class="space-y-4 border p-6 rounded-2xl soft-card">
-    <input id="email" type="email" class="w-full border p-3 rounded" placeholder="البريد الإلكتروني" autocomplete="username">
-    <input id="password" type="password" class="w-full border p-3 rounded" placeholder="كلمة المرور" autocomplete="current-password">
-    <button id="signupBtn" type="button" class="w-full px-4 py-2 border rounded">إنشاء حساب بالبريد</button>
-    <button id="loginBtn" type="button" class="w-full px-4 py-2 bg-rose-600 text-white rounded">تسجيل الدخول بالبريد</button>
-    <button id="googleBtn" type="button" class="w-full px-4 py-2 rounded bg-black text-white">تسجيل الدخول بواسطة Google</button>
-    <button id="resetBtn" type="button" class="w-full px-4 py-2 underline text-sm">نسيت كلمة المرور؟</button>
-    <button id="logoutBtn" type="button" class="hidden w-full px-4 py-2 rounded bg-slate-800 text-white">تسجيل الخروج</button>
-    <p id="authMsg" class="text-center text-sm text-rose-700 min-h-[1.5rem]"></p>
-    <div class="debug mt-4 space-y-2">
-      <button id="diagBtn" class="px-4 py-2 border rounded">🧪 فحص الاتصال بـ Firebase</button>
-      <pre id="diagOut"></pre>
+  <!-- معلومات البنك -->
+  <section id="payment" class="max-w-3xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-4">معلومات الحساب البنكي</h2>
+    <div class="p-6 rounded-2xl border soft-card bg-white space-y-4 text-sm">
+      <div class="border rounded-xl p-3"><div class="text-slate-500">اسم البنك</div><div class="font-bold">مصرف الراجحي</div></div>
+      <div class="border rounded-xl p-3"><div class="text-slate-500">اسم الحساب</div><div class="font-bold">شركة السهل واللين</div></div>
+      <div class="border rounded-xl p-3"><div class="text-slate-500">IBAN</div><div class="font-bold break-all">SA5880000375608010255740</div></div>
+      <div class="border rounded-xl p-3"><div class="text-slate-500">رقم الحساب</div><div class="font-bold break-all">37500-001-0006080255740</div></div>
+      <div class="border rounded-xl p-3"><div class="text-slate-500">الهاتف / واتساب</div><div class="font-bold">0534335815</div></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="border-t text-center text-slate-500 p-4">© <span id="year"></span> السهل واللين</footer>
+  <!-- قسم المواقع -->
+  <section id="web" class="max-w-7xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-4">قسم تصميم المواقع</h2>
+    <p class="text-slate-600">زيارة الموقع الفرعي للقسم:</p>
+    <a href="https://mkam339.github.io/mkam339-/#" target="_blank" class="inline-block mt-3 px-4 py-2 rounded-xl border hover:bg-rose-50">زيارة الموقع الفرعي</a>
+  </section>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('companyEmail').textContent = "info@example.com";
-  document.getElementById('companyEmail').href = "mailto:info@example.com";
+  <!-- تواصل -->
+  <section id="contact" class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-4">تواصل معنا</h2>
+    <div class="mt-3 p-4 rounded-2xl border soft-card bg-white">
+      <a id="companyEmail" href="mailto:info@example.com" class="text-lg font-bold text-rose-600">info@example.com</a>
+    </div>
+  </section>
 
-  // مفاتيح Firebase (كما زودتني بها)
-  const firebaseConfig = {
-    apiKey: "AIzaSyCpO_HmeRLjGSvNwyKTvstl6KhK0RFhtEw",
-    authDomain: "alsahl-and-layn.firebaseapp.com",
-    projectId: "alsahl-and-layn",
-    storageBucket: "alsahl-and-layn.appspot.com",
-    messagingSenderId: "25071534351",
-    appId: "1:25071534351:web:0d1cdb01248cfd55b9fe7a",
-    measurementId: "G-KE56Z6SC7X"
-  };
+  <!-- تسجيل الدخول -->
+  <section id="auth" class="max-w-md mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-6 text-center">تسجيل الدخول</h2>
 
-  // تهيئة Firebase (compat)
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  auth.useDeviceLanguage();
-  try { auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch(e) { console.warn(e); }
+    <div id="authState" class="hidden mb-4 p-3 rounded-xl border bg-green-50 text-green-700 text-sm">
+      تم تسجيل الدخول كـ <span id="authUserEmail" class="font-bold"></span>
+    </div>
 
-  // عناصر
-  const emailEl = document.getElementById('email');
-  const passEl  = document.getElementById('password');
-  const msgEl   = document.getElementById('authMsg');
-  const stateBox= document.getElementById('authState');
-  const stateEmail = document.getElementById('authUserEmail');
-  const logoutBtn  = document.getElementById('logoutBtn');
-  const navPill    = document.getElementById('navEmailPill');
-  const navEmail   = document.getElementById('navEmailText');
-  const diagBtn    = document.getElementById('diagBtn');
-  const diagOut    = document.getElementById('diagOut');
+    <div class="space-y-4 border p-6 rounded-2xl soft-card">
+      <input id="email" type="email" class="w-full border p-3 rounded" placeholder="البريد الإلكتروني" autocomplete="username">
+      <input id="password" type="password" class="w-full border p-3 rounded" placeholder="كلمة المرور" autocomplete="current-password">
 
-  // رسائل عربية
-  const ERR = {
-    "auth/invalid-api-key": "مفتاح Firebase غير صحيح.",
-    "auth/app-not-authorized": "هذا الدومين غير مصرح به في Firebase (أضفه في Authorized domains).",
-    "auth/operation-not-allowed": "طريقة الدخول غير مفعّلة في Firebase.",
-    "auth/operation-not-supported-in-this-environment": "هذه العملية غير مدعومة في هذا السياق (غالبًا file://). شغّل عبر http(s).",
-    "auth/web-storage-unsupported": "المتصفح يمنع التخزين المحلي. فعّل الـCookies.",
-    "auth/popup-blocked": "المتصفح منع النافذة المنبثقة. اسمح بالمنبثقات أو سنستخدم إعادة التوجيه.",
-    "auth/popup-closed-by-user": "أُغلقت نافذة Google قبل الإتمام.",
-    "auth/cancelled-popup-request": "تم إلغاء النافذة السابقة. جرّب مجددًا.",
-    "auth/invalid-email": "صيغة البريد غير صحيحة.",
-    "auth/missing-email": "رجاءً اكتب بريدك الإلكتروني.",
-    "auth/missing-password": "رجاءً اكتب كلمة المرور.",
-    "auth/weak-password": "كلمة المرور ضعيفة (6 أحرف على الأقل).",
-    "auth/email-already-in-use": "هذا البريد مسجّل مسبقًا.",
-    "auth/user-not-found": "لا يوجد مستخدم بهذا البريد.",
-    "auth/wrong-password": "كلمة المرور غير صحيحة.",
-    "auth/too-many-requests": "محاولات كثيرة. انتظر قليلاً ثم حاول.",
-    "default": "حدث خطأ غير متوقع."
-  };
-  const show = (t, ok=false)=>{ msgEl.textContent=t; msgEl.className="text-center text-sm "+(ok?"text-green-700":"text-rose-700"); };
+      <button id="signupBtn" type="button" class="w-full px-4 py-2 border rounded">إنشاء حساب بالبريد</button>
+      <button id="loginBtn" type="button" class="w-full px-4 py-2 bg-rose-600 text-white rounded">تسجيل الدخول بالبريد</button>
+      <button id="googleBtn" type="button" class="w-full px-4 py-2 rounded bg-black text-white">تسجيل الدخول بواسطة Google</button>
 
-  // حالة المستخدم
-  auth.onAuthStateChanged((user)=>{
-    if (user) {
-      const em = user.email || "مستخدم";
-      stateBox.classList.remove('hidden');
-      logoutBtn.classList.remove('hidden');
-      stateEmail.textContent = em;
-      navPill.classList.remove('hidden');
-      navEmail.textContent = em;
-      show("✅ تم تسجيل الدخول.", true);
-    } else {
-      stateBox.classList.add('hidden');
-      logoutBtn.classList.add('hidden');
-      navPill.classList.add('hidden');
-      navEmail.textContent = "";
-    }
-  });
+      <button id="resetBtn" type="button" class="w-full px-4 py-2 underline text-sm">نسيت كلمة المرور؟</button>
+      <button id="logoutBtn" type="button" class="hidden w-full px-4 py-2 rounded bg-slate-800 text-white">تسجيل الخروج</button>
 
-  // أزرار
-  document.getElementById('signupBtn').onclick = async ()=>{
-    if (!emailEl.value || !passEl.value) return show("رجاءً اكتب بريدك وكلمة المرور.");
-    try { await auth.createUserWithEmailAndPassword(emailEl.value.trim(), passEl.value); show("✅ تم إنشاء الحساب وتسجيل الدخول.", true); }
-    catch(e) { console.error(e); show(ERR[e?.code] || (ERR.default + " " + (e?.message||""))); }
-  };
+      <p id="authMsg" class="text-center text-sm text-rose-700 min-h-[1.5rem]"></p>
+    </div>
+  </section>
 
-  document.getElementById('loginBtn').onclick = async ()=>{
-    if (!emailEl.value || !passEl.value) return show("رجاءً اكتب بريدك وكلمة المرور.");
-    try { await auth.signInWithEmailAndPassword(emailEl.value.trim(), passEl.value); show("✅ تم تسجيل الدخول.", true); }
-    catch(e) { console.error(e); show(ERR[e?.code] || (ERR.default + " " + (e?.message||""))); }
-  };
+  <footer class="border-t text-center text-slate-500 p-4">© <span id="year"></span> السهل واللين</footer>
 
-  document.getElementById('googleBtn').onclick = async ()=>{
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try { await auth.signInWithPopup(provider); show("✅ تم تسجيل الدخول بواسطة Google.", true); }
-    catch(e) {
-      console.warn('Popup failed, trying redirect...', e);
-      if (e?.code === "auth/popup-blocked" || e?.code === "auth/operation-not-supported-in-this-environment") {
-        try { await auth.signInWithRedirect(provider); }
-        catch(e2) { console.error(e2); show(ERR[e2?.code] || (ERR.default + " " + (e2?.message||""))); }
-      } else {
-        show(ERR[e?.code] || (ERR.default + " " + (e?.message||"")));
-      }
-    }
-  };
+  <!-- سكربت الموقع + Firebase Auth -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const companyEmailEl = document.getElementById('companyEmail');
+    companyEmailEl.textContent = "info@example.com";
+    companyEmailEl.href = "mailto:info@example.com";
 
-  document.getElementById('resetBtn').onclick = async ()=>{
-    if (!emailEl.value) return show("رجاءً اكتب بريدك الإلكتروني.");
-    try { await auth.sendPasswordResetEmail(emailEl.value.trim()); show("📧 إذا كان البريد مسجّلًا ستصلك رسالة قريبًا.", true); }
-    catch(e) { console.error(e); show(ERR[e?.code] || (ERR.default + " " + (e?.message||""))); }
-  };
-
-  logoutBtn.onclick = async ()=>{
-    try { await auth.signOut(); show("تم تسجيل الخروج.", true); }
-    catch(e) { console.error(e); show(ERR[e?.code] || (ERR.default + " " + (e?.message||""))); }
-  };
-
-  // فحص سريع
-  document.getElementById('diagBtn').onclick = ()=>{
-    const data = {
-      location: location.href,
-      protocol: location.protocol,
-      authorizedHint: "أضف الدومين الحالي في Firebase → Authentication → Settings → Authorized domains",
-      configProjectId: firebase.app().options.projectId,
-      cookiesEnabled: navigator.cookieEnabled,
-      user: auth.currentUser ? { email: auth.currentUser.email, uid: auth.currentUser.uid } : null,
-      userAgent: navigator.userAgent
+    // مفاتيح Firebase (كما زودتني بها)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpO_HmeRLjGSvNwyKTvstl6KhK0RFhtEw",
+      authDomain: "alsahl-and-layn.firebaseapp.com",
+      projectId: "alsahl-and-layn",
+      storageBucket: "alsahl-and-layn.appspot.com",
+      messagingSenderId: "25071534351",
+      appId: "1:25071534351:web:0d1cdb01248cfd55b9fe7a",
+      measurementId: "G-KE56Z6SC7X"
     };
-    document.getElementById('diagOut').textContent = JSON.stringify(data, null, 2);
-  };
-</script>
+    // تهيئة Firebase (compat)
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    auth.useDeviceLanguage();
+    try { auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch(e) { console.warn(e); }
 
+    // عناصر
+    const emailEl = document.getElementById('email');
+    const passEl  = document.getElementById('password');
+    const msgEl   = document.getElementById('authMsg');
+    const stateBox= document.getElementById('authState');
+    const stateEmail = document.getElementById('authUserEmail');
+    const logoutBtn  = document.getElementById('logoutBtn');
+    const navPill    = document.getElementById('navEmailPill');
+    const navEmail   = document.getElementById('navEmailText');
+
+    // رسائل عربية
+    const ERR = {
+      "auth/invalid-api-key": "مفتاح Firebase غير صحيح.",
+      "auth/app-not-authorized": "هذا الدومين غير مصرح به في Firebase (أضفه في Authorized domains).",
+      "auth/operation-not-allowed": "طريقة الدخول غير مفعّلة.",
+      "auth/invalid-email": "صيغة البريد غير صحيحة.",
+      "auth/missing-email": "رجاءً اكتب بريدك الإلكتروني.",
+      "auth/missing-password": "رجاءً اكتب كلمة المرور.",
+      "auth/weak-password": "كلمة المرور ضعيفة.",
+      "auth/email-already-in-use": "هذا البريد مسجّل مسبقًا.",
+      "auth/user-not-found": "لا يوجد مستخدم بهذا البريد.",
+      "auth/wrong-password": "كلمة المرور غير صحيحة.",
+      "default": "حدث خطأ غير متوقع."
+    };
+    const show = (t, ok=false)=>{ msgEl.textContent=t; msgEl.className="text-center text-sm "+(ok?"text-green-700":"text-rose-700"); };
+
+    // حالة المستخدم
+    auth.onAuthStateChanged((user)=>{
+      if (user) {
+        const em = user.email || "مستخدم";
+        stateBox.classList.remove('hidden');
+        logoutBtn.classList.remove('hidden');
+        stateEmail.textContent = em;
+        navPill.classList.remove('hidden');
+        navEmail.textContent = em;
+        show("✅ تم تسجيل الدخول.", true);
+      } else {
+        stateBox.classList.add('hidden');
+        logoutBtn.classList.add('hidden');
+        navPill.classList.add('hidden');
+        navEmail.textContent = "";
+      }
+    });
+
+    // إنشاء حساب
+    document.getElementById('signupBtn').onclick = async ()=>{
+      if (!emailEl.value || !passEl.value) return show("رجاءً اكتب بريدك وكلمة المرور.");
+      try {
+        await auth.createUserWithEmailAndPassword(emailEl.value.trim(), passEl.value);
+        show("✅ تم إنشاء الحساب وتسجيل الدخول.", true);
+      } catch(e) {
+        console.error(e); show(ERR[e?.code] || (ERR.default));
+      }
+    };
+
+    // تسجيل الدخول بالبريد
+    document.getElementById('loginBtn').onclick = async ()=>{
+      if (!emailEl.value || !passEl.value) return show("رجاءً اكتب بريدك وكلمة المرور.");
+      try {
+        await auth.signInWithEmailAndPassword(emailEl.value.trim(), passEl.value);
+        show("✅ تم تسجيل الدخول.", true);
+      } catch(e) {
+        console.error(e); show(ERR[e?.code] || (ERR.default));
+      }
+    };
+
+    // Google Sign-In
+    document.getElementById('googleBtn').onclick = async ()=>{
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await auth.signInWithPopup(provider);
+        show("✅ تم تسجيل الدخول بواسطة Google.", true);
+      } catch(e) {
+        console.error(e);
+        // كخطة بديلة: يمكنك تفعيل إعادة التوجيه لو أردت
+        // await auth.signInWithRedirect(provider);
+        show(ERR[e?.code] || (ERR.default));
+      }
+    };
+
+    // نسيت كلمة المرور
+    document.getElementById('resetBtn').onclick = async ()=>{
+      if (!emailEl.value) return show("رجاءً اكتب بريدك الإلكتروني.");
+      try {
+        await auth.sendPasswordResetEmail(emailEl.value.trim());
+        show("📧 إذا كان البريد مسجّلًا ستصلك رسالة قريبًا.", true);
+      } catch(e) {
+        console.error(e); show(ERR[e?.code] || (ERR.default));
+      }
+    };
+
+    // تسجيل الخروج
+    logoutBtn.onclick = async ()=>{
+      try { await auth.signOut(); show("تم تسجيل الخروج.", true); }
+      catch(e) { console.error(e); show(ERR[e?.code] || (ERR.default)); }
+    };
+  </script>
 </body>
 </html>
